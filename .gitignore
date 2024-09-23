@@ -136,3 +136,7 @@ data/
 # Ignore SQLite database
 *.db
 *.db-journal
+
+# Ignore local storage
+
+sessions/

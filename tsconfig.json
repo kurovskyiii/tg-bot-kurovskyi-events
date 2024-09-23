@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "baseUrl": ".",
     "rootDir": ".",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "paths": {
-      "#root/*": [
+      "@root/*": [
         "./src/*"
       ]
     },
     "strict": true,
     "noEmit": true,
-    "outDir": "build",
+    "outDir": "./build",
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

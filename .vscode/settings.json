@@ -15,5 +15,8 @@
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[fluent]": {
+    "files.trimTrailingWhitespace": false
   }
 }

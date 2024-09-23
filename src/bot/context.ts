@@ -4,11 +4,18 @@ import type { AutoChatActionFlavor } from '@grammyjs/auto-chat-action'
 import type { HydrateFlavor } from '@grammyjs/hydrate'
 import type { I18nFlavor } from '@grammyjs/i18n'
 import type { ParseModeFlavor } from '@grammyjs/parse-mode'
-import type { Logger } from '#root/logger.js'
-import type { Config } from '#root/config.js'
+import type { ConversationFlavor } from '@grammyjs/conversations'
+import type { Logger } from '@root/logger.js'
+import type { Config } from '@root/config.js'
+import type { ScenesFlavor, ScenesSessionData } from 'grammy-scenes'
+import type { Subscriptions } from '@root/bot/common/constants.js'
+import type { ChatMembersFlavor } from '@grammyjs/chat-members'
 
-export interface SessionData {
-  // field?: string;
+export type SessionData = ScenesSessionData & {
+  firstName?: string
+  lastName?: string
+  username?: string
+  subscriptions: Subscriptions[]
 }
 
 interface ExtendedContextFlavor {
@@ -21,8 +28,10 @@ export type Context = ParseModeFlavor<
     DefaultContext &
     ExtendedContextFlavor &
     SessionFlavor<SessionData> &
+    ScenesFlavor &
     I18nFlavor &
-    AutoChatActionFlavor
+    ConversationFlavor &
+    AutoChatActionFlavor & ChatMembersFlavor
   >
 >
 
@@ -43,6 +52,10 @@ export function createContextConstructor(
 
     constructor(update: Update, api: Api, me: UserFromGetMe) {
       super(update, api, me)
+
+      Object.defineProperty(this, 'logger', {
+        writable: true,
+      })
 
       this.logger = logger.child({
         update_id: this.update.update_id,
