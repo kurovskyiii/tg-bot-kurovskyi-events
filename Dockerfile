@@ -28,6 +28,8 @@ RUN npm ci --omit=dev
 # Bundle app source
 COPY . .
 
+RUN mkdir -p /usr/src/sessions
+
 USER node
 
 # Start the app
