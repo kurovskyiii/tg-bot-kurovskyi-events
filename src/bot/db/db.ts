@@ -38,6 +38,12 @@ class Db {
     return this.db.data?.users.findIndex(u => u.id === id) >= 0
   }
 
+  async getAllUserIds(): Promise<ID[]> {
+    this.db.read()
+
+    return this.db.data.users.map(u => u.id)
+  }
+
   async registerUser({ id, firstName, lastName, username, languageCode }: { id: ID, firstName: string, lastName?: string, username?: string, languageCode?: string }): Promise<void> {
     this.db.read()
 

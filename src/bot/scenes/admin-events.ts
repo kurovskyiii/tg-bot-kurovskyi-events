@@ -153,13 +153,20 @@ adminEventsScene.wait(VERIFY_EVENT_MENU_LABEL).on('message:text', async (ctx) =>
 
     const eventId = await db.addNewEvent({ description })
 
-    const subscribers = await db.getNotificationSubscriberIds({ subscriptionType: SubscriptionTypes.EVENTS })
+    const subscriberIds = await db.getNotificationSubscriberIds({ subscriptionType: SubscriptionTypes.EVENTS })
 
-    subscribers.forEach(async (subscriberId) => {
-      await ctx.api.sendMessage(subscriberId, ctx.t('events-new-event-message', { description }), {
-        reply_markup: new InlineKeyboard().text(ctx.t('events-accept-menu-accept-action-title'), `accept-event-${eventId}`),
-      })
-    })
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+    for (const userId of subscriberIds) {
+      try {
+        await ctx.api.sendMessage(userId, ctx.t('events-new-event-message', { description }), {
+          reply_markup: new InlineKeyboard().text(ctx.t('events-accept-menu-accept-action-title'), `accept-event-${eventId}`),
+        })
+        await delay(1000)
+      }
+      catch {
+      }
+    }
 
     await ctx.reply(
       `${ctx.t('admin-events-added-message')}`,

@@ -4,7 +4,6 @@ import { Scene } from 'grammy-scenes'
 import { checkCallbackActionExists, sendUnavailableActionMessage } from '@root/bot/helpers/actions.js'
 import { ADMIN_WELCOME_SCENE_ID } from '@root/bot/scenes/admin-welcome.js'
 import { db } from '@root/bot/db/db.js'
-import { SubscriptionTypes } from '@root/bot/common/constants.js'
 
 import type { Context } from '@root/bot/common/context.js'
 
@@ -151,11 +150,18 @@ adminBroadcastScene.wait(VERIFY_BROADCAST_MENU_LABEL).on('message:text', async (
   if (choice === actions.saveBroadcast) {
     const description = ctx.scene.session.description!
 
-    const subscribers = await db.getNotificationSubscriberIds({ subscriptionType: SubscriptionTypes.EVENTS })
+    const allUserIds = await db.getAllUserIds()
 
-    subscribers.forEach(async (subscriberId) => {
-      await ctx.api.sendMessage(subscriberId, ctx.t('broadcast-new-message', { description }))
-    })
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+    for (const userId of allUserIds) {
+      try {
+        await ctx.api.sendMessage(userId, ctx.t('broadcast-new-message', { description }))
+        await delay(1000)
+      }
+      catch {
+      }
+    }
 
     await ctx.reply(
       `${ctx.t('admin-broadcast-added-message')}`,
