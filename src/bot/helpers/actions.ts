@@ -1,8 +1,6 @@
-import type { Context } from '@root/bot/context.js'
+import type { Context } from '@root/bot/common/context.js'
 
-export function checkCallbackActionExists({ actions, context }: { actions: string[], context: Context }): boolean {
-  const choice = context.callbackQuery?.data
-
+export function checkCallbackActionExists({ actions, choice }: { actions: string[], choice: string }): boolean {
   if (!choice) {
     return false
   }

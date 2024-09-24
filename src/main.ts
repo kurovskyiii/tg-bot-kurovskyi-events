@@ -3,7 +3,7 @@
 import process from 'node:process'
 import { type RunnerHandle, run } from '@grammyjs/runner'
 import { logger } from '@root/logger.js'
-import { createBot } from '@root/bot/index.js'
+import { createBot } from '@root/bot/bot.js'
 import type { PollingConfig, WebhookConfig } from '@root/config.js'
 import { config } from '@root/config.js'
 import { createServer, createServerManager } from '@root/server/index.js'

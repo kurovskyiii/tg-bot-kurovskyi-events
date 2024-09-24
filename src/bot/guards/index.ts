@@ -1,1 +1,1 @@
-export * from './isMyChatMember.js'
+export * from './is-channel-member.js'

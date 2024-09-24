@@ -28,7 +28,8 @@ RUN npm ci --omit=dev
 # Bundle app source
 COPY . .
 
-RUN mkdir -p /usr/src/sessions
+# Ensure the data directory exists and set proper permissions
+RUN mkdir -p /usr/src/data && chown -R node:node /usr/src/data
 
 USER node
 

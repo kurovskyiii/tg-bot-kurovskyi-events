@@ -1,17 +1,16 @@
 import { Composer } from 'grammy'
-import type { Context } from '@root/bot/context.js'
+
 import { logHandle } from '@root/bot/helpers/logging.js'
+import type { Context } from '@root/bot/common/context.js'
 
-const composer = new Composer<Context>()
+export const unhandledFeature = new Composer<Context>()
 
-const feature = composer.chatType('private')
+const filteredUnhandledFeature = unhandledFeature.chatType('private')
 
-feature.on('message', logHandle('unhandled-message'), (ctx) => {
-  return ctx.reply(ctx.t('unhandled'))
+filteredUnhandledFeature.on('message', logHandle('unhandled-message'), (ctx) => {
+  return ctx.reply(ctx.t('error-unhandled'))
 })
 
-feature.on('callback_query', logHandle('unhandled-callback-query'), (ctx) => {
+filteredUnhandledFeature.on('callback_query', logHandle('unhandled-callback-query'), (ctx) => {
   return ctx.answerCallbackQuery()
 })
-
-export { composer as unhandledFeature }

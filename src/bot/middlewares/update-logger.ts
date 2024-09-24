@@ -1,9 +1,9 @@
 import { performance } from 'node:perf_hooks'
 import type { Middleware } from 'grammy'
-import type { Context } from '@root/bot/context.js'
+import type { Context } from '@root/bot/common/context.js'
 import { getUpdateInfo } from '@root/bot/helpers/logging.js'
 
-export function updateLogger(): Middleware<Context> {
+export function updateLoggerMiddleware(): Middleware<Context> {
   return async (ctx, next) => {
     ctx.api.config.use((previous, method, payload, signal) => {
       ctx.logger.debug({

@@ -140,3 +140,4 @@ data/
 # Ignore local storage
 
 sessions/
+data/

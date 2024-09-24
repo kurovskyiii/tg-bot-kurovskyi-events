@@ -2,35 +2,38 @@ import { Keyboard } from 'grammy'
 import { Scene } from 'grammy-scenes'
 
 import { checkCallbackActionExists, sendUnavailableActionMessage } from '@root/bot/helpers/actions.js'
-import { EVENTS_SCENE_ID } from '@root/bot/scenes/events.js'
+import { ADMIN_EVENTS_SCENE_ID } from '@root/bot/scenes/admin-events.js'
+import { ADMIN_BROADCAST_SCENE_ID } from '@root/bot/scenes/admin-broadcast.js'
 
 import type { Context } from '@root/bot/common/context.js'
 
-export const WELCOME_SCENE_ID = 'welcome'
+export const ADMIN_WELCOME_SCENE_ID = 'adminWelcome'
 
 interface SceneSession {
 }
 
-export const welcomeScene = new Scene<Context, SceneSession>(WELCOME_SCENE_ID)
+export const adminWelcomeScene = new Scene<Context, SceneSession>(ADMIN_WELCOME_SCENE_ID)
 
 // Step 1
 
 function generateMenuActions(ctx: Context) {
   return {
-    eventsScene: ctx.t('welcome-intro-menu-events-action-title'),
+    eventsScene: ctx.t('admin-welcome-intro-menu-events-action-title'),
+    broadcastScene: ctx.t('admin-welcome-intro-menu-broadcast-action-title'),
   }
 }
 
 const START_LABEL = 'start'
 
-welcomeScene.label(START_LABEL).step(async (ctx) => {
+adminWelcomeScene.label(START_LABEL).step(async (ctx) => {
   const actions = generateMenuActions(ctx)
 
   ctx.reply(
-    ctx.t('welcome-intro-message'),
+    ctx.t('admin-welcome-intro-message'),
     {
       reply_markup: new Keyboard()
-        .text(actions.eventsScene)
+        .text(actions.eventsScene).row()
+        .text(actions.broadcastScene)
         .placeholder(ctx.t('menu-placeholder'))
         .persistent().resized().oneTime(),
       disable_notification: true,
@@ -42,7 +45,7 @@ welcomeScene.label(START_LABEL).step(async (ctx) => {
 
 const MENU_LABEL = 'menu'
 
-welcomeScene.wait(MENU_LABEL).on('message:text', async (ctx) => {
+adminWelcomeScene.wait(MENU_LABEL).on('message:text', async (ctx) => {
   const actions = generateMenuActions(ctx)
   const choice = ctx.message.text
 
@@ -55,6 +58,9 @@ welcomeScene.wait(MENU_LABEL).on('message:text', async (ctx) => {
   }
 
   if (choice === actions.eventsScene) {
-    ctx.scenes.enter(EVENTS_SCENE_ID)
+    ctx.scenes.enter(ADMIN_EVENTS_SCENE_ID)
+  }
+  else if (choice === actions.broadcastScene) {
+    ctx.scenes.enter(ADMIN_BROADCAST_SCENE_ID)
   }
 })

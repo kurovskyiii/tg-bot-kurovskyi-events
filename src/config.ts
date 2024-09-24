@@ -1,4 +1,5 @@
 import process from 'node:process'
+
 import * as v from 'valibot'
 import { API_CONSTANTS } from 'grammy'
 
@@ -79,7 +80,7 @@ function createConfigFromEnvironment() {
   }
 
   try {
-    process.loadEnvFile()
+    process.loadEnvFile(`.env`)
   }
   catch {
     // No .env file found

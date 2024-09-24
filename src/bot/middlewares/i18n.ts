@@ -3,9 +3,9 @@ import path from 'node:path'
 
 import { I18n } from '@grammyjs/i18n'
 
-import type { Context } from '@root/bot/context.js'
+import type { Context } from '@root/bot/common/context.js'
 
-export const i18n = new I18n<Context>({
+const i18n = new I18n<Context>({
   defaultLocale: 'ru',
   directory: path.resolve(process.cwd(), 'locales'),
   useSession: true,
@@ -14,4 +14,6 @@ export const i18n = new I18n<Context>({
   },
 })
 
-export const isMultipleLocales = i18n.locales.length > 1
+export function i18nMiddleware() {
+  return i18n
+}
