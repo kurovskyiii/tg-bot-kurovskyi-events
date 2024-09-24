@@ -4,3 +4,5 @@ services:
       context: .
     env_file:
       - stack.env
+    volumes:
+      - /var/www/docker/kurovskyi-secret-bot/data:/usr/src/data
