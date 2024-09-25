@@ -73,6 +73,7 @@ async function startWebhook(config: WebhookConfig) {
   // to prevent receiving updates before the bot is ready
   await bot.init()
 
+  logger.info('Starting server...')
   // start server
   const info = await serverManager.start()
   logger.info({
