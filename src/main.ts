@@ -43,26 +43,19 @@ async function startPolling(config: PollingConfig) {
 }
 
 async function startWebhook(config: WebhookConfig) {
-  logger.info('Starting webhook...')
-  logger.info('Creating bot...')
   const bot = createBot(config.botToken, {
     config,
     logger,
   })
-  logger.info('Bot created.')
-  logger.info('Creating server...')
   const server = createServer({
     bot,
     config,
     logger,
   })
-  logger.info('Server created.')
-  logger.info('Creating server manager...')
   const serverManager = createServerManager(server, {
     host: config.serverHost,
     port: config.serverPort,
   })
-  logger.info('Server manager created.')
 
   // graceful shutdown
   onShutdown(async () => {
@@ -71,9 +64,8 @@ async function startWebhook(config: WebhookConfig) {
   })
 
   // to prevent receiving updates before the bot is ready
-  await bot.init()
+  // await bot.init()
 
-  logger.info('Starting server...')
   // start server
   const info = await serverManager.start()
   logger.info({
