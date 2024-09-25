@@ -9,6 +9,7 @@ import { config } from '@root/config.js'
 import { createServer, createServerManager } from '@root/server/index.js'
 
 async function startPolling(config: PollingConfig) {
+  logger.info('Starting polling...')
   const bot = createBot(config.botToken, {
     config,
     logger,
@@ -42,6 +43,7 @@ async function startPolling(config: PollingConfig) {
 }
 
 async function startWebhook(config: WebhookConfig) {
+  logger.info('Starting webhook...')
   const bot = createBot(config.botToken, {
     config,
     logger,
