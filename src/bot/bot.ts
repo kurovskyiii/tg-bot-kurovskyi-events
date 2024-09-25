@@ -45,13 +45,13 @@ export function createBot(
   if (config.isDebug)
     protectedBot.use(updateLoggerMiddleware())
 
-  protectedBot.use(rateLimiterMiddleware())
   protectedBot.use(autoChatActionMiddleware())
   protectedBot.use(parseModeHydrateMiddleware())
   protectedBot.use(hydrateMiddleware())
   protectedBot.use(sessionMiddleware())
   protectedBot.use(i18nMiddleware())
   protectedBot.use(chatMembersMiddleware())
+  protectedBot.use(rateLimiterMiddleware())
   protectedBot.use(scenes.manager())
 
   // Handlers
