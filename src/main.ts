@@ -64,7 +64,7 @@ async function startWebhook(config: WebhookConfig) {
   })
 
   // to prevent receiving updates before the bot is ready
-  // await bot.init()
+  await bot.init()
 
   // start server
   const info = await serverManager.start()
@@ -74,14 +74,14 @@ async function startWebhook(config: WebhookConfig) {
   })
 
   // set webhook
-  // await bot.api.setWebhook(config.botWebhook, {
-  //   allowed_updates: config.botAllowedUpdates,
-  //   secret_token: config.botWebhookSecret,
-  // })
-  // logger.info({
-  //   msg: 'Webhook was set',
-  //   url: config.botWebhook,
-  // })
+  await bot.api.setWebhook(config.botWebhook, {
+    allowed_updates: config.botAllowedUpdates,
+    secret_token: config.botWebhookSecret,
+  })
+  logger.info({
+    msg: 'Webhook was set',
+    url: config.botWebhook,
+  })
 }
 
 try {
