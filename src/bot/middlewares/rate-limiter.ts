@@ -11,6 +11,10 @@ export function rateLimiterMiddleware() {
     onLimitExceeded: (ctx: Context) => {
       ctx?.reply(ctx.t('error-rate-limit-exceeded'))
     },
-    keyGenerator: getSessionKey,
+    keyGenerator: (ctx) => {
+      if (ctx.chat?.type === 'private') {
+        return getSessionKey(ctx)
+      }
+    },
   })
 }
