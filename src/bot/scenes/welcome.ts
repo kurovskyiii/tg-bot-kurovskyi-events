@@ -3,6 +3,7 @@ import { Scene } from 'grammy-scenes'
 
 import { checkCallbackActionExists, sendUnavailableActionMessage } from '@root/bot/helpers/actions.js'
 import { EVENTS_SCENE_ID } from '@root/bot/scenes/events.js'
+import { QUESTIONS_SCENE_ID } from '@root/bot/scenes/questions.js'
 
 import type { Context } from '@root/bot/common/context.js'
 
@@ -18,6 +19,7 @@ export const welcomeScene = new Scene<Context, SceneSession>(WELCOME_SCENE_ID)
 function generateMenuActions(ctx: Context) {
   return {
     eventsScene: ctx.t('welcome-intro-menu-events-action-title'),
+    questionsScene: ctx.t('welcome-intro-menu-questions-action-title'),
   }
 }
 
@@ -30,7 +32,8 @@ welcomeScene.label(START_LABEL).step(async (ctx) => {
     ctx.t('welcome-intro-message'),
     {
       reply_markup: new Keyboard()
-        .text(actions.eventsScene)
+        .text(actions.eventsScene).row()
+        .text(actions.questionsScene)
         .placeholder(ctx.t('menu-placeholder'))
         .persistent().resized().oneTime(),
       disable_notification: true,
@@ -56,5 +59,9 @@ welcomeScene.wait(MENU_LABEL).on('message:text', async (ctx) => {
 
   if (choice === actions.eventsScene) {
     ctx.scenes.enter(EVENTS_SCENE_ID)
+  }
+
+  if (choice === actions.questionsScene) {
+    ctx.scenes.enter(QUESTIONS_SCENE_ID)
   }
 })

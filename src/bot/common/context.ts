@@ -9,6 +9,7 @@ import type { ChatMembersFlavor } from '@grammyjs/chat-members'
 
 import type { Logger } from '@root/logger.js'
 import type { Config } from '@root/config.js'
+import type { createBroadcastMessageMethod } from '@root/bot/helpers/api.js'
 
 export type SessionData = ScenesSessionData & {
 }
@@ -16,6 +17,7 @@ export type SessionData = ScenesSessionData & {
 export interface ExtendedContextFlavor {
   logger: Logger
   config: Config
+  broadcastMessage: ReturnType<typeof createBroadcastMessageMethod>
 }
 
 export type Context = ParseModeFlavor<

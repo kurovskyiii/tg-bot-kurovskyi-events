@@ -1,6 +1,6 @@
 import { ScenesComposer } from 'grammy-scenes'
 
-import { adminBroadcastScene, adminEventsScene, adminWelcomeScene, eventsScene, welcomeScene } from '@root/bot/scenes/index.js'
+import { adminBroadcastScene, adminEventsScene, adminWelcomeScene, eventsScene, questionsScene, welcomeScene } from '@root/bot/scenes/index.js'
 
 import type { Context } from '@root/bot/common/context.js'
 
@@ -11,3 +11,4 @@ scenes.scene(eventsScene)
 scenes.scene(adminWelcomeScene)
 scenes.scene(adminEventsScene)
 scenes.scene(adminBroadcastScene)
+scenes.scene(questionsScene)

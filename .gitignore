@@ -139,5 +139,8 @@ data/
 
 # Ignore local storage
 
-sessions/
 data/
+
+# MacOS
+
+.DS_Store

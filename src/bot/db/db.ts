@@ -21,6 +21,8 @@ class Db {
         events: [],
         eventAgreements: [],
         subscriptions: [],
+        questions: [],
+        questionAnswers: [],
       }))
     }
 
@@ -29,6 +31,8 @@ class Db {
       events: [],
       eventAgreements: [],
       subscriptions: [],
+      questions: [],
+      questionAnswers: [],
     })
   }
 
@@ -154,6 +158,23 @@ class Db {
     this.db.read()
 
     return this.db.data?.eventAgreements.findIndex(e => e.userId === userId && e.eventId === eventId) >= 0
+  }
+
+  async addNewQuestion({ userId, description }: { userId: ID, description: string }): Promise<ID> {
+    this.db.read()
+
+    const id = randomUUID()
+
+    this.db.data.questions.push({
+      id,
+      userId,
+      description,
+      createdAt: new Date().toISOString(),
+    })
+
+    this.db.write()
+
+    return id
   }
 }
 
