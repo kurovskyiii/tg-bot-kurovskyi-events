@@ -32,8 +32,8 @@ welcomeScene.label(START_LABEL).step(async (ctx) => {
     ctx.t('welcome-intro-message'),
     {
       reply_markup: new Keyboard()
-        .text(actions.eventsScene).row()
-        .text(actions.questionsScene)
+        .text(actions.questionsScene).row()
+        .text(actions.eventsScene)
         .placeholder(ctx.t('menu-placeholder'))
         .persistent().resized().oneTime(),
       disable_notification: true,
