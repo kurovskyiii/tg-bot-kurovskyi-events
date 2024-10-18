@@ -5,7 +5,7 @@ import { mainFeature } from '@root/bot/features/main.js'
 import { adminFeature } from '@root/bot/features/admin.js'
 import { unhandledFeature } from '@root/bot/features/unhandled.js'
 import { errorHandler } from '@root/bot/handlers/index.js'
-import { autoChatActionMiddleware, autoRetryMiddleware, chatMembersMiddleware, hydrateMiddleware, i18nMiddleware, parseModeHydrateMiddleware, parseModeMiddleware, rateLimiterMiddleware, sequentializeMiddleware, sessionMiddleware, updateLoggerMiddleware } from '@root/bot/middlewares/index.js'
+import { autoChatActionMiddleware, chatMembersMiddleware, hydrateMiddleware, i18nMiddleware, parseModeHydrateMiddleware, parseModeMiddleware, rateLimiterMiddleware, sequentializeMiddleware, sessionMiddleware, updateLoggerMiddleware } from '@root/bot/middlewares/index.js'
 import { createContextConstructor } from '@root/bot/helpers/context.js'
 import { scenes } from '@root/bot/scenes.js'
 
@@ -39,7 +39,7 @@ export function createBot(
   const protectedBot = bot.errorBoundary(errorHandler)
 
   bot.api.config.use(parseModeMiddleware())
-  bot.api.config.use(autoRetryMiddleware())
+  // bot.api.config.use(autoRetryMiddleware())
 
   if (config.isPollingMode)
     protectedBot.use(sequentializeMiddleware())
