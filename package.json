@@ -48,7 +48,7 @@
     "npm": "^10.8.3",
     "pino": "9.3.2",
     "pino-pretty": "11.2.2",
-    "tsx": "4.19.1",
+    "tsx": "4.19.2",
     "valibot": "0.42.1"
   },
   "devDependencies": {
